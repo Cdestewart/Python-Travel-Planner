@@ -1,0 +1,154 @@
+<html>
+
+<head>
+    <title>Add a trip</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+
+        }
+
+
+        body {
+            background: linear-gradient(320deg, #272229, #54545e 51%);
+            width: 900px;
+            min-height: 700px;
+            margin: 100px;
+
+        }
+
+        #container {
+            min-width: 831px;
+            min-height: 487px;
+            border-radius: 15px;
+            padding-top: 87px;
+            padding-bottom: 40px;
+            background: linear-gradient(-180deg, white, ghostwhite);
+            opacity: .9;
+            margin-top: 10px;
+            box-shadow: -1px -3px 27px 5px rgb(189, 189, 189) inset;
+            padding-left: 97px;
+        }
+
+
+
+        #header {
+            border-radius: 10px;
+            height: 50px;
+            width: 300px;
+            box-shadow: -1px -3px 21px -5px rgb(189, 189, 189) inset;
+            border: 3px solid lavender;
+            background: linear-gradient(-180deg, white, ghostwhite);
+        }
+
+        table {
+            margin: auto;
+            min-width: 700px;
+            min-height: 300px;
+            margin-bottom: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th {
+            padding: 10px;
+            background: linear-gradient( whitesmoke 5%, #f4f0f0);
+        }
+
+        td {
+            background-color: #f4f0f0;
+            padding: 5px;
+        }
+
+        button {
+            color: white;
+            border-radius: 8px;
+        }
+
+        .sub {
+            display: inline-block;
+            width: 300px;
+            vertical-align: top;
+
+        }
+
+        h1 {
+            display: inline-block;
+            width: 600px;
+            margin-right: 160px;
+            margin-left: 10px;
+            color: white;
+        }
+
+        a {
+            font-size: 20px;
+            padding: 5px;
+            color: #aea4a8;
+        }
+
+        input,
+        textarea {
+            padding: 3px;
+            margin-bottom: 20px;
+            width: 200px;
+            background-color: whitesmoke;
+            box-shadow: -1px -3px 27px 5px #f3ebeb inset;
+            border-top-style: outset;
+            border-left-style: outset;
+            border-color: whitesmoke;
+        }
+
+        button {
+            padding: 2px 11px 3px 12px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Add a Trip</h1>
+    <a href="/travels">Back</a>
+    <a href="/logoff">Logout</a>
+    <div id='container'>
+        {% for message in messages %}
+        <li class="{{ message.tags }}">
+            {% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message}}{% endif %}
+        </li>
+        {% endfor %}
+        <div class='sub'>
+            <form action='/add' method='POST'>
+                {% csrf_token %}
+                <label for='Destination'>Destination: </label>
+                <br>
+                <input type="text" name='Destination'>
+                <br>
+                <label for='Description'>Description: </label>
+                <br>
+                <textarea name="Description"></textarea>
+                <br>
+                <label for='from'>Travel Date From: </label>
+                <br>
+                <input type="date" name='from'>
+                <br>
+                <label for='to'>Travel Date From: </label>
+                <br>
+                <input type="date" name='to'>
+                <br>
+                <br>
+                <button>Submit</button>
+            </form>
+        </div>
+    </div>
+    </div>
+
+</body>
+
+</html>

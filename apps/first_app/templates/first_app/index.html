@@ -1,0 +1,137 @@
+<html>
+
+<head>
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background: linear-gradient(320deg, #272229, #54545e 51%);
+            width: 770px;
+            min-height: 700px;
+            margin: 100px;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        #container {
+            min-width: 631px;
+            min-height: 487px;
+            border-radius: 15px;
+            padding-top: 87px;
+            padding-bottom: 40px;
+            background: linear-gradient(-180deg, white, ghostwhite);
+            opacity: .9;
+            margin-top: 10px;
+            box-shadow: -1px -3px 27px 5px rgb(189, 189, 189) inset;
+            padding-left: 97px;
+        }
+
+
+        #header {
+            border-radius: 10px;
+            height: 50px;
+            width: 300px;
+            box-shadow: -1px -3px 21px -5px rgb(189, 189, 189) inset;
+            border: 3px solid lavender;
+            background: linear-gradient(-180deg, white, ghostwhite);
+        }
+
+        table {
+            margin: auto;
+            min-width: 700px;
+            min-height: 300px;
+            margin-bottom: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th {
+            padding: 10px;
+            background: linear-gradient( whitesmoke 5%, #f4f0f0);
+        }
+
+        td {
+            background-color: #f4f0f0;
+            padding: 5px;
+        }
+
+        button {
+            color: white;
+            border-radius: 8px;
+        }
+
+        .sub {
+            display: inline-block;
+            width: 300px;
+            vertical-align: top;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Welcome to Trip Buddy!</h1>
+    <div id='container'>
+        {% for message in messages %}
+        <li class="{{ message.tags }}">
+            {% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message}}{% endif %}
+        </li>
+        {% endfor %}
+        <div class='sub'>
+            <h2>Registration</h2>
+            <form action='/register' method='POST'>
+                {% csrf_token %}
+                <label for='fname'>First Name: </label>
+                <br>
+                <input type="text" name='fname'>
+                <br>
+                <label for='lname'>Last Name: </label>
+                <br>
+                <input type="text" name='lname'>
+                <br>
+                <label for='email'>Email: </label>
+                <br>
+                <input type="text" name='email'>
+                <br>
+                <label for='password'>Password: </label>
+                <br>
+                <input type="password" name='password'>
+                <br>
+                <label for='pconf'>Confirm Password: </label>
+                <br>
+                <input type="password" name='pconf'>
+                <br>
+                <br>
+                <button>Create</button>
+            </form>
+        </div>
+        <div class='sub'>
+            <h2>Login</h2>
+            <form action='/login' method='POST'>
+                {% csrf_token %}
+                <label for='email'>Email: </label>
+                <br>
+                <input type="text" name='email'>
+                <br>
+                <label for='password'>Password: </label>
+                <br>
+                <input type="password" name='password'>
+                <br>
+                <br>
+                <button>Login</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

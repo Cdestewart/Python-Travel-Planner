@@ -1,0 +1,162 @@
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        body {
+            background: linear-gradient(320deg, #272229, #54545e 51%);
+            width: 970px;
+            min-height: 700px;
+            margin: 100px;
+
+        }
+
+        #container {
+            min-width: 831px;
+            min-height: 487px;
+            border-radius: 15px;
+            padding-top: 87px;
+            padding-bottom: 40px;
+            background: linear-gradient(-180deg, white, ghostwhite);
+            opacity: .9;
+            margin-top: 10px;
+            box-shadow: -1px -3px 27px 5px rgb(189, 189, 189) inset;
+            padding-left: 97px;
+        }
+
+
+        #header {
+            border-radius: 10px;
+            height: 50px;
+            width: 300px;
+            box-shadow: -1px -3px 21px -5px rgb(189, 189, 189) inset;
+            border: 3px solid lavender;
+            background: linear-gradient(-180deg, white, ghostwhite);
+        }
+
+        table {
+            min-width: 700px;
+
+            margin-bottom: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th {
+            padding: 10px;
+            background: linear-gradient( whitesmoke 5%, #f4f0f0);
+        }
+
+        td {
+            background-color: #f4f0f0;
+            padding: 5px;
+        }
+
+        button {
+            color: white;
+            border-radius: 8px;
+        }
+
+        .sub {
+
+            vertical-align: top;
+
+        }
+
+        h1 {
+            margin-left: 10px;
+            display: inline-block;
+            width: 505px;
+            margin-right: 200px;
+        }
+
+        a {
+            font-size: 20px;
+            padding: 5px;
+            color: #aea4a8;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Welcome {{request.session.fname}}</h1>
+    <a href="/addtrip">Add a Trip</a>
+    <a href="/logoff">Logout</a>
+    <div id='container'>
+        <div class='sub'>
+            <h2>Your trip Schedules</h2>
+            <table>
+                <tr>
+                    <th>Destination</th>
+                    <th>Travel Start Date</th>
+                    <th>Travel End Date</th>
+                    <th>Plan</th>
+                    <th>Action</th>
+                </tr>
+
+                {%for trip in attend%}
+
+
+                <tr>
+                    <td>
+                        <a href="/view/{{trip.id}}">{{trip.Destination}}</a>
+                    </td>
+                    <td>{{trip.travel_from|date:"M d Y"}}</td>
+                    <td>{{trip.travel_to|date:"M d Y"}}</td>
+                    <td>{{trip.Description}}</td>
+                    <td>
+                        <a href="/unsubscript/{{trip.id}}">Cancel</a>
+                        {%if trip.creator.id == request.session.user_id%}
+                        <a href="/delete/{{trip.id}}">Delete</a>
+                        {%endif%}
+                    </td>
+                </tr>
+
+                {%endfor%}
+            </table>
+        </div>
+        <div class='sub'>
+            <h2>Other User's Travel Plans</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Travel Start Date</th>
+                    <th>Travel End Date</th>
+                    <th>Do you want to Join?</th>
+                </tr>
+                {%for trip in trips%} {%if trip.Attendee != request.session.user_id%}
+                <tr>
+                    <td>
+                        <a href="/view/{{trip.id}}">{{trip.Destination}}</a>
+                    </td>
+                    <td>{{trip.travel_from|date:"M d Y"}}</td>
+                    <td>{{trip.travel_to|date:"M d Y"}}</td>
+                    <td>
+                        <a href="/subscribe/{{trip.id}}">Join?</a>
+                    </td>
+                </tr>
+                {%endif%} {%endfor%}
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>
